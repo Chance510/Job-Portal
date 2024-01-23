@@ -18,12 +18,12 @@ import {
     USER_SIGNIN_SUCCESS
 } from '../constants/userConstant';
 
-const URL = 'localhost:8000'
+const url='http://localhost:8000'
 
 export const userSignInAction = (user) => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_REQUEST });
     try {
-        const { data } = await axios.post(`${URL}/api/signin`, user);
+        const { data } = await axios.post(`${url}/api/signin`, user);
         localStorage.setItem('userInfo', JSON.stringify(data));
         dispatch({
             type: USER_SIGNIN_SUCCESS,
@@ -43,7 +43,7 @@ export const userSignInAction = (user) => async (dispatch) => {
 export const userLogoutAction = () => async (dispatch) => {
     dispatch({ type: USER_LOGOUT_REQUEST });
     try {
-        const { data } = await axios.get(`${URL}/api/logout`);
+        const { data } = await axios.get(`${url}/api/logout`);
         localStorage.removeItem('userInfo');
         dispatch({
             type: USER_LOGOUT_SUCCESS,
@@ -64,7 +64,7 @@ export const userLogoutAction = () => async (dispatch) => {
 export const userProfileAction = () => async (dispatch) => {
     dispatch({ type: USER_LOAD_REQUEST });
     try {
-        const { data } = await axios.get(`${URL}/api/me`);
+        const { data } = await axios.get(`${url}/api/me`);
         dispatch({
             type: USER_LOAD_SUCCESS,
             payload: data
@@ -81,15 +81,21 @@ export const userProfileAction = () => async (dispatch) => {
 
 //all user action
 export const allUserAction = () => async (dispatch) => {
+    console.log(`entered alluseraction`)
     dispatch({ type: ALL_USER_LOAD_REQUEST });
     try {
-        const { data } = await axios.get(`${URL}/api/allusers`);
+        console.log(`entered alluseraction try`)
+        const data = await axios.get(`${url}/api/allusers`);
+        const users = data.users
+        console.log(`after call`)
+        console.log("data", users)
         dispatch({
             type: ALL_USER_LOAD_SUCCESS,
-            payload: data
+            payload: users
         });
-
+        
     } catch (error) {
+        console.log(`after call in error`)
         dispatch({
             type: ALL_USER_LOAD_FAIL,
             payload: error.response.data.error
@@ -101,7 +107,7 @@ export const allUserAction = () => async (dispatch) => {
 export const userApplyJobAction = (job) => async (dispatch) => {
     dispatch({ type: USER_APPLY_JOB_REQUEST });
     try {
-        const { data } = await axios.post(`${URL}/api/user/jobshistory`, job);
+        const { data } = await axios.post(`${url}/api/user/jobshistory`, job);
 
         dispatch({
             type: USER_APPLY_JOB_SUCCESS,

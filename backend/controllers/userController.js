@@ -3,6 +3,7 @@ const ErrorResponse = require('../utils/errorResponse');
 
 //load all users
 exports.allUsers = async (req, res, next) => {
+    console.log(`Entered allUsers`)
     //enable pagination
     const pageSize = 10;
     const page = Number(req.query.pageNumber) || 1;

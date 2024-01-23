@@ -17,8 +17,9 @@ const DashUsers = () => {
 
 
     const { users, loading } = useSelector(state => state.allUsers);
-    let data = [];
+    var data = [];
     data = (users !== undefined && users.length > 0) ? users : []
+    console.log(data);
 
     const deleteUserById = (e, id) => {
         console.log(id);
