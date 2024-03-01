@@ -51,7 +51,7 @@ exports.updateJob = async(req, res, next) => {
     }
 }
 
-//update job by id
+//show all jobs - pagination and searching
 exports.showJobs = async(req, res, next) => {
 
     //enable search
